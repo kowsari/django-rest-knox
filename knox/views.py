@@ -1,6 +1,6 @@
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
@@ -12,7 +12,7 @@ from knox.settings import knox_settings
 
 class LoginView(APIView):
     authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         token = AuthToken.objects.create(request.user)
